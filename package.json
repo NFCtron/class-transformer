@@ -1,6 +1,6 @@
 {
   "name": "@nfctron/class-transformer",
-  "version": "0.5.3",
+  "version": "0.5.7",
   "description": "Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors",
   "author": "TypeStack contributors, Dominik Zabcik",
   "license": "MIT",

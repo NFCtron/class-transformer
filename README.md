@@ -1,101 +1,103 @@
-# class-transformer
+<h1 align="center">
+  NFCtron Class Transformer
+</h1>
 
-![Build Status](https://github.com/typestack/class-transformer/workflows/CI/badge.svg)
-[![codecov](https://codecov.io/gh/typestack/class-transformer/branch/develop/graph/badge.svg)](https://codecov.io/gh/typestack/class-transformer)
-[![npm version](https://badge.fury.io/js/class-transformer.svg)](https://badge.fury.io/js/class-transformer)
+<h4 align="center">Decorator-based transformation, serialization, and deserialization of plain objects to class instances</h4>
 
-Its ES6 and Typescript era. Nowadays you are working with classes and constructor objects more than ever.
-Class-transformer allows you to transform plain object to some instance of class and versa.
-Also it allows to serialize / deserialize object based on criteria.
-This tool is super useful on both frontend and backend.
+<p align="center">
+  <img src="https://img.shields.io/badge/maintained_with-semantic--release-cc00ff" />
+  <img src="https://img.shields.io/badge/contributions-welcome-blue?logo=github" />
+  <img src="https://img.shields.io/badge/slack-dev__api-moccasin?logo=slack" />
+</p>
 
-Example how to use with angular 2 in [plunker](http://plnkr.co/edit/Mja1ZYAjVySWASMHVB9R).
-Source code is available [here](https://github.com/pleerock/class-transformer-demo).
+<p align="center">
+  <a href="https://www.typescriptlang.org">
+    <img src="https://img.shields.io/badge/typescript-4.9.5-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+  </a>
+  <a href="https://nodejs.org">
+    <img src="https://img.shields.io/badge/node.js-18+-339933.svg?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js">
+  </a>
+  <a href="https://www.npmjs.com">
+    <img src="https://img.shields.io/badge/npm-package-CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm">
+  </a>
+</p>
 
-## Table of contents
+<p align="center">
+  <a href="#overview">Overview</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#features">Features</a> •
+  <a href="#development">Development</a> •
+  <a href="#tech-stack">Tech Stack</a>
+</p>
 
-- [What is class-transformer](#what-is-class-transformer)
-- [Installation](#installation)
-  - [Node.js](#nodejs)
-  - [Browser](#browser)
-- [Methods](#methods)
-  - [plainToInstance](#plaintoinstance)
-  - [plainToClassFromExist](#plaintoclassfromexist)
-  - [instanceToPlain](#instancetoplain)
-  - [instanceToInstance](#instanceToInstance)
-  - [serialize](#serialize)
-  - [deserialize and deserializeArray](#deserialize-and-deserializearray)
-- [Enforcing type-safe instance](#enforcing-type-safe-instance)
-- [Working with nested objects](#working-with-nested-objects)
-  - [Providing more than one type option](#providing-more-than-one-type-option)
-- [Exposing getters and method return values](#exposing-getters-and-method-return-values)
-- [Exposing properties with different names](#exposing-properties-with-different-names)
-- [Skipping specific properties](#skipping-specific-properties)
-- [Skipping depend of operation](#skipping-depend-of-operation)
-- [Skipping all properties of the class](#skipping-all-properties-of-the-class)
-- [Skipping private properties, or some prefixed properties](#skipping-private-properties-or-some-prefixed-properties)
-- [Using groups to control excluded properties](#using-groups-to-control-excluded-properties)
-- [Using versioning to control exposed and excluded properties](#using-versioning-to-control-exposed-and-excluded-properties)
-- [Сonverting date strings into Date objects](#сonverting-date-strings-into-date-objects)
-- [Working with arrays](#working-with-arrays)
-- [Additional data transformation](#additional-data-transformation)
-  - [Basic usage](#basic-usage)
-  - [Advanced usage](#advanced-usage)
-- [Other decorators](#other-decorators)
-- [Working with generics](#working-with-generics)
-- [Implicit type conversion](#implicit-type-conversion)
-- [How does it handle circular references?](#how-does-it-handle-circular-references)
-- [Example with Angular2](#example-with-angular2)
-- [Samples](#samples)
-- [Release notes](#release-notes)
+<!-- docs:index:start -->
 
-## What is class-transformer[⬆](#table-of-contents)
+## 📋 Overview
 
-In JavaScript there are two types of objects:
+NFCtron Class Transformer is a TypeScript library that provides decorator-based transformation, serialization, and deserialization of plain JavaScript objects to class instances and vice versa. This is an NFCtron-maintained fork of the popular [class-transformer](https://github.com/typestack/class-transformer) library, published as `@nfctron/class-transformer` on GitHub Packages.
 
-- plain (literal) objects
-- class (constructor) objects
+The library is essential for working with class-based models in TypeScript/JavaScript, especially when dealing with JSON data from APIs, databases, or configuration files. It allows you to transform plain objects into class instances with methods and getters, enabling proper object-oriented programming patterns.
 
-Plain objects are objects that are instances of `Object` class.
-Sometimes they are called **literal** objects, when created via `{}` notation.
-Class objects are instances of classes with own defined constructor, properties and methods.
-Usually you define them via `class` notation.
+### Key Responsibilities
 
-So, what is the problem?
+-   **Object Transformation**: Convert plain objects to class instances and vice versa
+-   **Serialization/Deserialization**: Transform objects for JSON serialization and deserialization
+-   **Type Safety**: Maintain TypeScript type safety during transformations
+-   **Decorator-Based API**: Use decorators to control transformation behavior
+-   **Flexible Configuration**: Control what properties are exposed, excluded, or transformed
 
-Sometimes you want to transform plain javascript object to the ES6 **classes** you have.
-For example, if you are loading a json from your backend, some api or from a json file,
-and after you `JSON.parse` it you have a plain javascript object, not instance of class you have.
+## 🚀 Installation
 
-For example you have a list of users in your `users.json` that you are loading:
+### npm
 
-```json
-[
-  {
-    "id": 1,
-    "firstName": "Johny",
-    "lastName": "Cage",
-    "age": 27
-  },
-  {
-    "id": 2,
-    "firstName": "Ismoil",
-    "lastName": "Somoni",
-    "age": 50
-  },
-  {
-    "id": 3,
-    "firstName": "Luke",
-    "lastName": "Dacascos",
-    "age": 12
-  }
-]
+```bash
+npm install @nfctron/class-transformer reflect-metadata
 ```
 
-And you have a `User` class:
+### pnpm
+
+```bash
+pnpm add @nfctron/class-transformer reflect-metadata
+```
+
+### yarn
+
+```bash
+yarn add @nfctron/class-transformer reflect-metadata
+```
+
+### Important: reflect-metadata
+
+The `reflect-metadata` shim is required for this library to work. Make sure to import it in a global place in your application:
 
 ```typescript
-export class User {
+import 'reflect-metadata';
+```
+
+**For Node.js applications**, add this import at the top of your main entry file (e.g., `app.ts`, `index.ts`).
+
+**For browser applications**, add a script tag in your HTML:
+
+```html
+<html>
+  <head>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+  </head>
+</html>
+```
+
+## 📖 Usage
+
+### Basic Example
+
+Transform a plain object to a class instance:
+
+```typescript
+import { plainToInstance } from '@nfctron/class-transformer';
+import 'reflect-metadata';
+
+class User {
   id: number;
   firstName: string;
   lastName: string;
@@ -106,404 +108,88 @@ export class User {
   }
 
   isAdult() {
-    return this.age > 36 && this.age < 60;
+    return this.age >= 18;
   }
 }
+
+// Plain object from API/JSON
+const userJson = {
+  id: 1,
+  firstName: 'John',
+  lastName: 'Doe',
+  age: 25,
+};
+
+// Transform to class instance
+const user = plainToInstance(User, userJson);
+
+// Now you can use class methods
+console.log(user.getName()); // "John Doe"
+console.log(user.isAdult()); // true
 ```
 
-You are assuming that you are downloading users of type `User` from `users.json` file and may want to write
-following code:
+### Transform Class to Plain Object
 
 ```typescript
-fetch('users.json').then((users: User[]) => {
-  // you can use users here, and type hinting also will be available to you,
-  //  but users are not actually instances of User class
-  // this means that you can't use methods of User class
-});
+import { instanceToPlain } from '@nfctron/class-transformer';
+
+const user = new User();
+user.id = 1;
+user.firstName = 'John';
+user.lastName = 'Doe';
+
+// Transform to plain object for JSON serialization
+const plainUser = instanceToPlain(user);
+console.log(JSON.stringify(plainUser));
 ```
 
-In this code you can use `users[0].id`, you can also use `users[0].firstName` and `users[0].lastName`.
-However you cannot use `users[0].getName()` or `users[0].isAdult()` because "users" actually is
-array of plain javascript objects, not instances of User object.
-You actually lied to compiler when you said that its `users: User[]`.
-
-So what to do? How to make a `users` array of instances of `User` objects instead of plain javascript objects?
-Solution is to create new instances of User object and manually copy all properties to new objects.
-But things may go wrong very fast once you have a more complex object hierarchy.
-
-Alternatives? Yes, you can use class-transformer. Purpose of this library is to help you to map your plain javascript
-objects to the instances of classes you have.
-
-This library also great for models exposed in your APIs,
-because it provides a great tooling to control what your models are exposing in your API.
-Here is an example how it will look like:
+### Working with Arrays
 
 ```typescript
-fetch('users.json').then((users: Object[]) => {
-  const realUsers = plainToInstance(User, users);
-  // now each user in realUsers is an instance of User class
-});
+const usersJson = [
+  { id: 1, firstName: 'John', lastName: 'Doe' },
+  { id: 2, firstName: 'Jane', lastName: 'Smith' },
+];
+
+const users = plainToInstance(User, usersJson);
+// users is now User[] with all methods available
 ```
 
-Now you can use `users[0].getName()` and `users[0].isAdult()` methods.
+## ✨ Features
 
-## Installation[⬆](#table-of-contents)
+### Decorator-Based API
 
-### Node.js[⬆](#table-of-contents)
-
-1. Install module:
-
-   `npm install class-transformer --save`
-
-2. `reflect-metadata` shim is required, install it too:
-
-   `npm install reflect-metadata --save`
-
-   and make sure to import it in a global place, like app.ts:
-
-   ```typescript
-   import 'reflect-metadata';
-   ```
-
-3. ES6 features are used, if you are using old version of node.js you may need to install es6-shim:
-
-   `npm install es6-shim --save`
-
-   and import it in a global place like app.ts:
-
-   ```typescript
-   import 'es6-shim';
-   ```
-
-### Browser[⬆](#table-of-contents)
-
-1. Install module:
-
-   `npm install class-transformer --save`
-
-2. `reflect-metadata` shim is required, install it too:
-
-   `npm install reflect-metadata --save`
-
-   add `<script>` to reflect-metadata in the head of your `index.html`:
-
-   ```html
-   <html>
-     <head>
-       <!-- ... -->
-       <script src="node_modules/reflect-metadata/Reflect.js"></script>
-     </head>
-     <!-- ... -->
-   </html>
-   ```
-
-   If you are using angular 2 you should already have this shim installed.
-
-3. If you are using system.js you may want to add this into `map` and `package` config:
-
-   ```json
-   {
-     "map": {
-       "class-transformer": "node_modules/class-transformer"
-     },
-     "packages": {
-       "class-transformer": { "main": "index.js", "defaultExtension": "js" }
-     }
-   }
-   ```
-
-## Methods[⬆](#table-of-contents)
-
-### plainToInstance[⬆](#table-of-contents)
-
-This method transforms a plain javascript object to instance of specific class.
+#### @Expose() - Control Property Exposure
 
 ```typescript
-import { plainToInstance } from 'class-transformer';
+import { Expose, instanceToPlain } from '@nfctron/class-transformer';
 
-let users = plainToInstance(User, userJson); // to convert user plain object a single user. also supports arrays
+class User {
+  @Expose()
+  id: number;
+
+  @Expose()
+  email: string;
+
+  password: string; // Will be excluded
+}
+
+const user = new User();
+user.id = 1;
+user.email = 'user@example.com';
+user.password = 'secret';
+
+const plain = instanceToPlain(user);
+// { id: 1, email: 'user@example.com' }
 ```
 
-### plainToClassFromExist[⬆](#table-of-contents)
-
-This method transforms a plain object into an instance using an already filled Object which is an instance of the target class.
+#### @Exclude() - Skip Properties
 
 ```typescript
-const defaultUser = new User();
-defaultUser.role = 'user';
-
-let mixedUser = plainToClassFromExist(defaultUser, user); // mixed user should have the value role = user when no value is set otherwise.
-```
-
-### instanceToPlain[⬆](#table-of-contents)
-
-This method transforms your class object back to plain javascript object, that can be `JSON.stringify` later.
-
-```typescript
-import { instanceToPlain } from 'class-transformer';
-let photo = instanceToPlain(photo);
-```
-
-### instanceToInstance[⬆](#table-of-contents)
-
-This method transforms your class object into a new instance of the class object.
-This may be treated as deep clone of your objects.
-
-```typescript
-import { instanceToInstance } from 'class-transformer';
-let photo = instanceToInstance(photo);
-```
-
-You can also use an `ignoreDecorators` option in transformation options to ignore all decorators your classes are using.
-
-### serialize[⬆](#table-of-contents)
-
-You can serialize your model right to json using `serialize` method:
-
-```typescript
-import { serialize } from 'class-transformer';
-let photo = serialize(photo);
-```
-
-`serialize` works with both arrays and non-arrays.
-
-### deserialize and deserializeArray[⬆](#table-of-contents)
-
-You can deserialize your model from json using the `deserialize` method:
-
-```typescript
-import { deserialize } from 'class-transformer';
-let photo = deserialize(Photo, photo);
-```
-
-To make deserialization work with arrays, use the `deserializeArray` method:
-
-```typescript
-import { deserializeArray } from 'class-transformer';
-let photos = deserializeArray(Photo, photos);
-```
-
-## Enforcing type-safe instance[⬆](#table-of-contents)
-
-The default behaviour of the `plainToInstance` method is to set _all_ properties from the plain object,
-even those which are not specified in the class.
-
-```typescript
-import { plainToInstance } from 'class-transformer';
+import { Exclude } from '@nfctron/class-transformer';
 
 class User {
   id: number;
-  firstName: string;
-  lastName: string;
-}
-
-const fromPlainUser = {
-  unkownProp: 'hello there',
-  firstName: 'Umed',
-  lastName: 'Khudoiberdiev',
-};
-
-console.log(plainToInstance(User, fromPlainUser));
-
-// User {
-//   unkownProp: 'hello there',
-//   firstName: 'Umed',
-//   lastName: 'Khudoiberdiev',
-// }
-```
-
-If this behaviour does not suit your needs, you can use the `excludeExtraneousValues` option
-in the `plainToInstance` method while _exposing all your class properties_ as a requirement.
-
-```typescript
-import { Expose, plainToInstance } from 'class-transformer';
-
-class User {
-  @Expose() id: number;
-  @Expose() firstName: string;
-  @Expose() lastName: string;
-}
-
-const fromPlainUser = {
-  unkownProp: 'hello there',
-  firstName: 'Umed',
-  lastName: 'Khudoiberdiev',
-};
-
-console.log(plainToInstance(User, fromPlainUser, { excludeExtraneousValues: true }));
-
-// User {
-//   id: undefined,
-//   firstName: 'Umed',
-//   lastName: 'Khudoiberdiev'
-// }
-```
-
-## Working with nested objects[⬆](#table-of-contents)
-
-When you are trying to transform objects that have nested objects,
-it's required to known what type of object you are trying to transform.
-Since Typescript does not have good reflection abilities yet,
-we should implicitly specify what type of object each property contain.
-This is done using `@Type` decorator.
-
-Lets say we have an album with photos.
-And we are trying to convert album plain object to class object:
-
-```typescript
-import { Type, plainToInstance } from 'class-transformer';
-
-export class Album {
-  id: number;
-
-  name: string;
-
-  @Type(() => Photo)
-  photos: Photo[];
-}
-
-export class Photo {
-  id: number;
-  filename: string;
-}
-
-let album = plainToInstance(Album, albumJson);
-// now album is Album object with Photo objects inside
-```
-
-### Providing more than one type option[⬆](#table-of-contents)
-
-In case the nested object can be of different types, you can provide an additional options object,
-that specifies a discriminator. The discriminator option must define a `property` that holds the subtype
-name for the object and the possible `subTypes` that the nested object can converted to. A sub type
-has a `value`, that holds the constructor of the Type and the `name`, that can match with the `property`
-of the discriminator.
-
-Lets say we have an album that has a top photo. But this photo can be of certain different types.
-And we are trying to convert album plain object to class object. The plain object input has to define
-the additional property `__type`. This property is removed during transformation by default:
-
-**JSON input**:
-
-```json
-{
-  "id": 1,
-  "name": "foo",
-  "topPhoto": {
-    "id": 9,
-    "filename": "cool_wale.jpg",
-    "depth": 1245,
-    "__type": "underwater"
-  }
-}
-```
-
-```typescript
-import { Type, plainToInstance } from 'class-transformer';
-
-export abstract class Photo {
-  id: number;
-  filename: string;
-}
-
-export class Landscape extends Photo {
-  panorama: boolean;
-}
-
-export class Portrait extends Photo {
-  person: Person;
-}
-
-export class UnderWater extends Photo {
-  depth: number;
-}
-
-export class Album {
-  id: number;
-  name: string;
-
-  @Type(() => Photo, {
-    discriminator: {
-      property: '__type',
-      subTypes: [
-        { value: Landscape, name: 'landscape' },
-        { value: Portrait, name: 'portrait' },
-        { value: UnderWater, name: 'underwater' },
-      ],
-    },
-  })
-  topPhoto: Landscape | Portrait | UnderWater;
-}
-
-let album = plainToInstance(Album, albumJson);
-// now album is Album object with a UnderWater object without `__type` property.
-```
-
-Hint: The same applies for arrays with different sub types. Moreover you can specify `keepDiscriminatorProperty: true`
-in the options to keep the discriminator property also inside your resulting class.
-
-## Exposing getters and method return values[⬆](#table-of-contents)
-
-You can expose what your getter or method return by setting an `@Expose()` decorator to those getters or methods:
-
-```typescript
-import { Expose } from 'class-transformer';
-
-export class User {
-  id: number;
-  firstName: string;
-  lastName: string;
-  password: string;
-
-  @Expose()
-  get name() {
-    return this.firstName + ' ' + this.lastName;
-  }
-
-  @Expose()
-  getFullName() {
-    return this.firstName + ' ' + this.lastName;
-  }
-}
-```
-
-## Exposing properties with different names[⬆](#table-of-contents)
-
-If you want to expose some of the properties with a different name,
-you can do that by specifying a `name` option to `@Expose` decorator:
-
-```typescript
-import { Expose } from 'class-transformer';
-
-export class User {
-  @Expose({ name: 'uid' })
-  id: number;
-
-  firstName: string;
-
-  lastName: string;
-
-  @Expose({ name: 'secretKey' })
-  password: string;
-
-  @Expose({ name: 'fullName' })
-  getFullName() {
-    return this.firstName + ' ' + this.lastName;
-  }
-}
-```
-
-## Skipping specific properties[⬆](#table-of-contents)
-
-Sometimes you want to skip some properties during transformation.
-This can be done using `@Exclude` decorator:
-
-```typescript
-import { Exclude } from 'class-transformer';
-
-export class User {
-  id: number;
-
   email: string;
 
   @Exclude()
@@ -511,391 +197,251 @@ export class User {
 }
 ```
 
-Now when you transform a User, the `password` property will be skipped and not be included in the transformed result.
-
-## Skipping depend of operation[⬆](#table-of-contents)
-
-You can control on what operation you will exclude a property. Use `toClassOnly` or `toPlainOnly` options:
+#### @Type() - Handle Nested Objects
 
 ```typescript
-import { Exclude } from 'class-transformer';
+import { Type, plainToInstance } from '@nfctron/class-transformer';
 
-export class User {
+class Photo {
   id: number;
-
-  email: string;
-
-  @Exclude({ toPlainOnly: true })
-  password: string;
-}
-```
-
-Now `password` property will be excluded only during `instanceToPlain` operation. Vice versa, use the `toClassOnly` option.
-
-## Skipping all properties of the class[⬆](#table-of-contents)
-
-You can skip all properties of the class, and expose only those are needed explicitly:
-
-```typescript
-import { Exclude, Expose } from 'class-transformer';
-
-@Exclude()
-export class User {
-  @Expose()
-  id: number;
-
-  @Expose()
-  email: string;
-
-  password: string;
-}
-```
-
-Now `id` and `email` will be exposed, and password will be excluded during transformation.
-Alternatively, you can set exclusion strategy during transformation:
-
-```typescript
-import { instanceToPlain } from 'class-transformer';
-let photo = instanceToPlain(photo, { strategy: 'excludeAll' });
-```
-
-In this case you don't need to `@Exclude()` a whole class.
-
-## Skipping private properties, or some prefixed properties[⬆](#table-of-contents)
-
-If you name your private properties with a prefix, lets say with `_`,
-then you can exclude such properties from transformation too:
-
-```typescript
-import { instanceToPlain } from 'class-transformer';
-let photo = instanceToPlain(photo, { excludePrefixes: ['_'] });
-```
-
-This will skip all properties that start with `_` prefix.
-You can pass any number of prefixes and all properties that begin with these prefixes will be ignored.
-For example:
-
-```typescript
-import { Expose, instanceToPlain } from 'class-transformer';
-
-export class User {
-  id: number;
-  private _firstName: string;
-  private _lastName: string;
-  _password: string;
-
-  setName(firstName: string, lastName: string) {
-    this._firstName = firstName;
-    this._lastName = lastName;
-  }
-
-  @Expose()
-  get name() {
-    return this._firstName + ' ' + this._lastName;
-  }
+  filename: string;
 }
 
-const user = new User();
-user.id = 1;
-user.setName('Johny', 'Cage');
-user._password = '123';
-
-const plainUser = instanceToPlain(user, { excludePrefixes: ['_'] });
-// here plainUser will be equal to
-// { id: 1, name: "Johny Cage" }
-```
-
-## Using groups to control excluded properties[⬆](#table-of-contents)
-
-You can use groups to control what data will be exposed and what will not be:
-
-```typescript
-import { Exclude, Expose, instanceToPlain } from 'class-transformer';
-
-export class User {
+class Album {
   id: number;
-
   name: string;
 
-  @Expose({ groups: ['user', 'admin'] }) // this means that this data will be exposed only to users and admins
-  email: string;
-
-  @Expose({ groups: ['user'] }) // this means that this data will be exposed only to users
-  password: string;
+  @Type(() => Photo)
+  photos: Photo[];
 }
 
-let user1 = instanceToPlain(user, { groups: ['user'] }); // will contain id, name, email and password
-let user2 = instanceToPlain(user, { groups: ['admin'] }); // will contain id, name and email
+const albumJson = {
+  id: 1,
+  name: 'Vacation',
+  photos: [
+    { id: 1, filename: 'photo1.jpg' },
+    { id: 2, filename: 'photo2.jpg' },
+  ],
+};
+
+const album = plainToInstance(Album, albumJson);
+// album.photos is now Photo[] with proper types
 ```
 
-## Using versioning to control exposed and excluded properties[⬆](#table-of-contents)
-
-If you are building an API that has different versions, class-transformer has extremely useful tools for that.
-You can control which properties of your model should be exposed or excluded in what version. Example:
+#### @Transform() - Custom Transformations
 
 ```typescript
-import { Exclude, Expose, instanceToPlain } from 'class-transformer';
+import { Transform, Type } from '@nfctron/class-transformer';
 
-export class User {
-  id: number;
-
-  name: string;
-
-  @Expose({ since: 0.7, until: 1 }) // this means that this property will be exposed for version starting from 0.7 until 1
-  email: string;
-
-  @Expose({ since: 2.1 }) // this means that this property will be exposed for version starting from 2.1
-  password: string;
-}
-
-let user1 = instanceToPlain(user, { version: 0.5 }); // will contain id and name
-let user2 = instanceToPlain(user, { version: 0.7 }); // will contain id, name and email
-let user3 = instanceToPlain(user, { version: 1 }); // will contain id and name
-let user4 = instanceToPlain(user, { version: 2 }); // will contain id and name
-let user5 = instanceToPlain(user, { version: 2.1 }); // will contain id, name and password
-```
-
-## Сonverting date strings into Date objects[⬆](#table-of-contents)
-
-Sometimes you have a Date in your plain javascript object received in a string format.
-And you want to create a real javascript Date object from it.
-You can do it simply by passing a Date object to the `@Type` decorator:
-
-```typescript
-import { Type } from 'class-transformer';
-
-export class User {
-  id: number;
-
-  email: string;
-
-  password: string;
-
-  @Type(() => Date)
-  registrationDate: Date;
-}
-```
-
-Same technique can be used with `Number`, `String`, `Boolean`
-primitive types when you want to convert your values into these types.
-
-## Working with arrays[⬆](#table-of-contents)
-
-When you are using arrays you must provide a type of the object that array contains.
-This type, you specify in a `@Type()` decorator:
-
-```typescript
-import { Type } from 'class-transformer';
-
-export class Photo {
-  id: number;
-
-  name: string;
-
-  @Type(() => Album)
-  albums: Album[];
-}
-```
-
-You can also use custom array types:
-
-```typescript
-import { Type } from 'class-transformer';
-
-export class AlbumCollection extends Array<Album> {
-  // custom array functions ...
-}
-
-export class Photo {
-  id: number;
-
-  name: string;
-
-  @Type(() => Album)
-  albums: AlbumCollection;
-}
-```
-
-Library will handle proper transformation automatically.
-
-ES6 collections `Set` and `Map` also require the `@Type` decorator:
-
-```typescript
-export class Skill {
-  name: string;
-}
-
-export class Weapon {
-  name: string;
-  range: number;
-}
-
-export class Player {
-  name: string;
-
-  @Type(() => Skill)
-  skills: Set<Skill>;
-
-  @Type(() => Weapon)
-  weapons: Map<string, Weapon>;
-}
-```
-
-## Additional data transformation[⬆](#table-of-contents)
-
-### Basic usage[⬆](#table-of-contents)
-
-You can perform additional data transformation using `@Transform` decorator.
-For example, you want to make your `Date` object to be a `moment` object when you are
-transforming object from plain to class:
-
-```typescript
-import { Transform } from 'class-transformer';
-import * as moment from 'moment';
-import { Moment } from 'moment';
-
-export class Photo {
-  id: number;
-
-  @Type(() => Date)
-  @Transform(({ value }) => moment(value), { toClassOnly: true })
-  date: Moment;
-}
-```
-
-Now when you call `plainToInstance` and send a plain representation of the Photo object,
-it will convert a date value in your photo object to moment date.
-`@Transform` decorator also supports groups and versioning.
-
-### Advanced usage[⬆](#table-of-contents)
-
-The `@Transform` decorator is given more arguments to let you configure how you want the transformation to be done.
-
-```ts
-@Transform(({ value, key, obj, type }) => value)
-```
-
-| Argument  | Description                                             |
-| --------- | ------------------------------------------------------- |
-| `value`   | The property value before the transformation.           |
-| `key`     | The name of the transformed property.                   |
-| `obj`     | The transformation source object.                       |
-| `type`    | The transformation type.                                |
-| `options` | The options object passed to the transformation method. |
-
-## Other decorators[⬆](#table-of-contents)
-
-| Signature                | Example                                              | Description                                                                           |
-| ------------------------ | ---------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `@TransformClassToPlain` | `@TransformClassToPlain({ groups: ["user"] })`       | Transform the method return with instanceToPlain and expose the properties on the class. |
-| `@TransformClassToClass` | `@TransformClassToClass({ groups: ["user"] })`       | Transform the method return with instanceToInstance and expose the properties on the class. |
-| `@TransformPlainToClass` | `@TransformPlainToClass(User, { groups: ["user"] })` | Transform the method return with plainToInstance and expose the properties on the class. |
-
-The above decorators accept one optional argument:
-ClassTransformOptions - The transform options like groups, version, name
-
-An example:
-
-```typescript
-@Exclude()
 class User {
   id: number;
 
-  @Expose()
-  firstName: string;
-
-  @Expose()
-  lastName: string;
-
-  @Expose({ groups: ['user.email'] })
-  email: string;
-
-  password: string;
+  @Type(() => Date)
+  @Transform(({ value }) => value.toISOString(), { toPlainOnly: true })
+  createdAt: Date;
 }
-
-class UserController {
-  @TransformClassToPlain({ groups: ['user.email'] })
-  getUser() {
-    const user = new User();
-    user.firstName = 'Snir';
-    user.lastName = 'Segal';
-    user.password = 'imnosuperman';
-
-    return user;
-  }
-}
-
-const controller = new UserController();
-const user = controller.getUser();
 ```
 
-the `user` variable will contain only firstName,lastName, email properties because they are
-the exposed variables. email property is also exposed because we metioned the group "user.email".
+### Advanced Features
 
-## Working with generics[⬆](#table-of-contents)
+-   **Groups**: Control property exposure based on user roles or contexts
+-   **Versioning**: Expose different properties for different API versions
+-   **Custom Transformers**: Apply custom transformation logic
+-   **Circular References**: Handle circular object references
+-   **Type Discriminators**: Support for polymorphic types
+-   **Implicit Type Conversion**: Automatic type conversion (optional)
 
-Generics are not supported because TypeScript does not have good reflection abilities yet.
-Once TypeScript team provide us better runtime type reflection tools, generics will be implemented.
-There are some tweaks however you can use, that maybe can solve your problem.
-[Checkout this example.](https://github.com/pleerock/class-transformer/tree/master/sample/sample4-generics)
+## 🛠️ Development
 
-## Implicit type conversion[⬆](#table-of-contents)
+### Prerequisites
 
-> **NOTE** If you use class-validator together with class-transformer you propably DON'T want to enable this function.
+-   **[Node.js](https://nodejs.org/)** 18+ (for development)
+-   **[npm](https://www.npmjs.com/)** or **[pnpm](https://pnpm.io/)** (package manager)
+-   **TypeScript** 4.9.5+
 
-Enables automatic conversion between built-in types based on type information provided by Typescript. Disabled by default.
+### Setting Up Development Environment
 
-```ts
-import { IsString } from 'class-validator';
+1.   **Clone the repository**:
 
-class MyPayload {
-  @IsString()
-  prop: string;
-}
-
-const result1 = plainToInstance(MyPayload, { prop: 1234 }, { enableImplicitConversion: true });
-const result2 = plainToInstance(MyPayload, { prop: 1234 }, { enableImplicitConversion: false });
-
-/**
- *  result1 will be `{ prop: "1234" }` - notice how the prop value has been converted to string.
- *  result2 will be `{ prop: 1234 }` - default behaviour
- */
+```bash
+git clone git@github.com:NFCtron/class-transformer.git
+cd class-transformer
 ```
 
-## How does it handle circular references?[⬆](#table-of-contents)
+2.   **Install dependencies**:
 
-Circular references are ignored.
-For example, if you are transforming class `User` that contains property `photos` with type of `Photo`,
-and `Photo` contains link `user` to its parent `User`, then `user` will be ignored during transformation.
-Circular references are not ignored only during `instanceToInstance` operation.
-
-## Example with Angular2[⬆](#table-of-contents)
-
-Lets say you want to download users and want them automatically to be mapped to the instances of `User` class.
-
-```typescript
-import { plainToInstance } from 'class-transformer';
-
-this.http
-  .get('users.json')
-  .map(res => res.json())
-  .map(res => plainToInstance(User, res as Object[]))
-  .subscribe(users => {
-    // now "users" is type of User[] and each user has getName() and isAdult() methods available
-    console.log(users);
-  });
+```bash
+npm install
+# or
+pnpm install
 ```
 
-You can also inject a class `ClassTransformer` as a service in `providers`, and use its methods.
+3.   **Build the project**:
 
-Example how to use with angular 2 in [plunker](http://plnkr.co/edit/Mja1ZYAjVySWASMHVB9R).
-Source code is [here](https://github.com/pleerock/class-transformer-demo).
+```bash
+npm run build
+```
 
-## Samples[⬆](#table-of-contents)
+This builds multiple output formats:
+-   CommonJS (`cjs/`)
+-   ES5 modules (`esm5/`)
+-   ES2015 modules (`esm2015/`)
+-   TypeScript types (`types/`)
 
-Take a look on samples in [./sample](https://github.com/pleerock/class-transformer/tree/master/sample) for more examples of
-usages.
+### Available Scripts
 
-## Release notes[⬆](#table-of-contents)
+```bash
+# Build all formats
+npm run build
 
-See information about breaking changes and release notes [here](https://github.com/typestack/class-transformer/blob/master/CHANGELOG.md).
+# Build specific formats
+npm run build:cjs        # CommonJS
+npm run build:esm5       # ES5 modules
+npm run build:esm2015    # ES2015 modules
+npm run build:types      # TypeScript definitions
+npm run build:umd        # UMD bundle
+
+# Code quality
+npm run lint:check       # Check linting
+npm run lint:fix         # Fix linting issues
+npm run prettier:check   # Check formatting
+npm run prettier:fix     # Fix formatting
+
+# Testing
+npm test                 # Run tests with coverage
+npm run test:watch       # Watch mode
+npm run test:ci          # CI mode (no cache, run in band)
+```
+
+### Project Structure
+
+```
+.
+├── src/                    # Source code
+│   ├── ClassTransformer.ts # Main transformer class
+│   ├── decorators/         # Decorator implementations
+│   ├── interfaces/         # TypeScript interfaces
+│   ├── enums/              # Enumerations
+│   ├── utils/              # Utility functions
+│   └── index.ts            # Main entry point
+├── test/                   # Test files
+│   └── functional/          # Functional tests
+├── sample/                 # Example code samples
+├── docs/                   # Documentation
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Package configuration
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode for development
+npm run test:watch
+
+# CI mode (for continuous integration)
+npm run test:ci
+```
+
+### Code Style
+
+-   Follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit messages
+-   Use TypeScript for all code
+-   Run linting and formatting before committing
+-   Ensure all tests pass before submitting PRs
+
+## 📦 Publishing
+
+This package is published to GitHub Packages:
+
+```bash
+npm publish
+```
+
+The package is configured to publish to:
+-   Registry: `https://npm.pkg.github.com/`
+-   Package name: `@nfctron/class-transformer`
+
+### Version Management
+
+Versions follow [Semantic Versioning](https://semver.org/):
+-   **MAJOR**: Breaking changes
+-   **MINOR**: New features (backward compatible)
+-   **PATCH**: Bug fixes (backward compatible)
+
+## 🧰 Tech Stack
+
+### Core Technologies
+
+-   **TypeScript**: Programming language (v4.9.5)
+-   **reflect-metadata**: Runtime metadata reflection (required dependency)
+
+### Build Tools
+
+-   **TypeScript Compiler**: Multi-format compilation (CJS, ESM5, ESM2015)
+-   **Rollup**: UMD bundle generation
+-   **Jest**: Testing framework
+-   **ESLint**: Code linting
+-   **Prettier**: Code formatting
+
+### Development Tools
+
+-   **Husky**: Git hooks
+-   **lint-staged**: Pre-commit linting
+-   **rimraf**: Clean build directories
+
+## 🔗 Related Repositories
+
+-   [class-validator](https://github.com/typestack/class-validator) - Often used together with class-transformer for validation
+-   [nfctron-api](https://github.com/NFCtron/nfctron-api) - Uses this library for DTO transformations
+-   [nfctron-cobra](https://github.com/NFCtron/nfctron-cobra) - Uses this library for data transformations
+
+## 📚 Documentation
+
+### API Reference
+
+Main transformation methods:
+
+-   `plainToInstance<T, V>(cls: ClassConstructor<T>, plain: V, options?): T` - Transform plain object to class instance
+-   `instanceToPlain<T>(object: T, options?): Record<string, any>` - Transform class instance to plain object
+-   `instanceToInstance<T>(object: T, options?): T` - Deep clone class instance
+
+### Decorators
+
+-   `@Expose(options?)` - Expose property during transformation
+-   `@Exclude(options?)` - Exclude property from transformation
+-   `@Type(typeFn)` - Specify nested object type
+-   `@Transform(transformFn, options?)` - Apply custom transformation
+
+### Examples
+
+See the `sample/` directory for comprehensive examples:
+
+-   `sample1-simple-usage/` - Basic usage patterns
+-   `sample2-inheritance/` - Working with class inheritance
+-   `sample3-custom-arrays/` - Custom array types
+-   `sample4-generics/` - Generic type handling
+-   `sample5-custom-transformer/` - Custom transformation logic
+
+## 📝 Notes
+
+-   **reflect-metadata Required**: This library requires `reflect-metadata` to be imported globally
+-   **ES6 Features**: Uses ES6 classes and decorators
+-   **TypeScript Decorators**: Requires `experimentalDecorators` and `emitDecoratorMetadata` in `tsconfig.json`
+-   **Circular References**: Handled automatically (ignored except in `instanceToInstance`)
+-   **Performance**: Optimized for production use with minimal overhead
+
+## 🚨 Important Considerations
+
+-   **Decorator Metadata**: Ensure `emitDecoratorMetadata: true` in your TypeScript configuration
+-   **Runtime Performance**: Transformation has minimal overhead but consider caching for high-frequency operations
+-   **Type Safety**: While TypeScript provides compile-time type checking, runtime validation may be needed
+-   **Compatibility**: Works with TypeScript 4.9+ and modern JavaScript runtimes
+
+## 🔄 Upstream Relationship
+
+This is an NFCtron-maintained fork of [typestack/class-transformer](https://github.com/typestack/class-transformer). Changes and improvements are maintained by the NFCtron team for internal use and published as `@nfctron/class-transformer`.
+
+<!-- docs:index:end -->
